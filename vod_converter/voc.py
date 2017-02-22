@@ -40,7 +40,7 @@ class VOCIngestor(Ingestor):
 
     def _get_image_detection(self, root, image_id):
         path = f"{root}/VOC2012"
-        image_path = f"{path}/JPEGImages/{image_id}.jpg"
+        image_path = f"{path}/JPEGImages/{image_id}.png"
         if not os.path.isfile(image_path):
             raise Exception(f"Expected {image_path} to exist.")
         annotation_path = f"{path}/Annotations/{image_id}.xml"

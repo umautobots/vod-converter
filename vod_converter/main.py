@@ -12,10 +12,32 @@ import converter
 import kitti
 import voc
 
+import csv
+
 import sys
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+
+class CountEgestor(converter.Egestor):
+
+    def egest(self, *, image_detections, root):
+        """
+        Output data to the filesystem.
+
+        :param image_detections: an array of dicts conforming to `IMAGE_DETECTION_SCHEMA`
+        :param root: '/path/to/output/data/'
+        """
+        with open(f"{root}/detections.csv", 'w') as out_f:
+            out_f_csv = csv.writer(out_f)
+            out_f_csv.writerow(['image_width', 'image_height', 'top', 'left', 'right', 'bottom'])
+            for ids in image_detections:
+                img = ids['image']
+                dets = ids['detections']
+                for det in dets:
+                    out_f_csv.writerow([img['width'], img['height']] + [det[a] for a in ['top', 'left', 'right', 'bottom']])
+
 
 INGESTORS = {
     'kitti': kitti.KITTIIngestor(),
