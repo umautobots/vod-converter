@@ -10,6 +10,7 @@ import logging
 
 import converter
 import kitti
+import kitti_tracking
 import voc
 
 import sys
@@ -19,6 +20,7 @@ logger.setLevel(logging.INFO)
 
 INGESTORS = {
     'kitti': kitti.KITTIIngestor(),
+    'kitti-tracking': kitti_tracking.KITTITrackingIngestor(),
     'voc': voc.VOCIngestor()
 }
 

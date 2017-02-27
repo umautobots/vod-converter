@@ -110,9 +110,9 @@ class VOCEgestor(Egestor):
                 shutil.copyfile(image['segmented_path'], f"{segmentations_path}/{image_id}.png")
 
             xml_root = ET.Element('annotation')
-            add_text_node(xml_root, 'filename', f"{image_id}.jpg")
+            add_text_node(xml_root, 'filename', f"{image_id}.{src_extension}")
             add_text_node(xml_root, 'folder', 'VOC2012')
-            add_text_node(xml_root, 'segmented', 0)
+            add_text_node(xml_root, 'segmented', int(segmentations_dir_created))
 
             add_sub_node(xml_root, 'size', {
                 'depth': 3,
