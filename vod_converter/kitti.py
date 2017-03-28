@@ -37,6 +37,7 @@ from converter import Ingestor, Egestor
 
 # Detections
 
+
 class KITTIIngestor(Ingestor):
     def validate(self, path):
         expected_dirs = [

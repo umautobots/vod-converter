@@ -11,6 +11,7 @@ import logging
 import converter
 import kitti
 import kitti_tracking
+import udacity
 import voc
 
 import sys
@@ -21,7 +22,9 @@ logger.setLevel(logging.INFO)
 INGESTORS = {
     'kitti': kitti.KITTIIngestor(),
     'kitti-tracking': kitti_tracking.KITTITrackingIngestor(),
-    'voc': voc.VOCIngestor()
+    'voc': voc.VOCIngestor(),
+    'udacity-crowdai': udacity.UdacityCrowdAIIngestor(),
+    'udacity-autti': udacity.UdacityAuttiIngestor()
 }
 
 EGESTORS = {
@@ -30,9 +33,11 @@ EGESTORS = {
 }
 
 
-def main(*, from_path, from_key, to_path, to_key):
+def main(*, from_path, from_key, to_path, to_key, select_only_known_labels, filter_images_without_labels):
     success, msg = converter.convert(from_path=from_path, ingestor=INGESTORS[from_key],
-                                     to_path=to_path, egestor=EGESTORS[to_key])
+                                     to_path=to_path, egestor=EGESTORS[to_key],
+                                     select_only_known_labels=select_only_known_labels,
+                                     filter_images_without_labels=filter_images_without_labels)
     if success:
         print(f"Successfully converted from {from_key} to {to_key}.")
     else:
@@ -55,11 +60,25 @@ def parse_args():
     required.add_argument('--to', dest='to_key', required=True,
                           help=f'Format to convert to: one of {", ".join(EGESTORS.keys())}',
                           type=str)
-    optional.add_argument(
+    required.add_argument(
         '--to-path',
-        dest='to_path',
-        help=f'Path to output directory for converted datset. If omitted, one will be created based on your '
-             f'input directory and output format, e.g "/path/to/dataset-voc"', type=str, default=None)
+        dest='to_path', required=True,
+        help="Path to output directory for converted dataset.", type=str)
+    optional.add_argument(
+        '--select-only-known-labels',
+        help="only include labels known to the destination dataset (e.g skip 'trafficlight' if VOC doesn't know about it)",
+        required=False,
+        action='store_true',
+        default=False
+    )
+    optional.add_argument(
+        '--filter-images-without-labels',
+        help="skip images that don't have any (known) labels",
+        required=False,
+        action='store_true',
+        default=False
+    )
+
     args = parser.parse_args()
     logging.info(args)
     return args
@@ -67,4 +86,7 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    sys.exit(main(from_path=args.from_path, from_key=args.from_key, to_path=args.to_path, to_key=args.to_key))
+    sys.exit(main(from_path=args.from_path, from_key=args.from_key,
+                  to_path=args.to_path, to_key=args.to_key,
+                  select_only_known_labels=args.select_only_known_labels,
+                  filter_images_without_labels=args.filter_images_without_labels))

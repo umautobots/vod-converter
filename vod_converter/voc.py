@@ -78,12 +78,33 @@ class VOCIngestor(Ingestor):
             'bottom': float(bndbox.find('ymax').text) - 1,
         }
 
-CONVERT_LABELS = {
-    'Car': 'car',
-    'Pedestrian': 'person'
-}
 
 class VOCEgestor(Egestor):
+
+    def expected_labels(self):
+        return {
+            'aeroplane': [],
+            'bicycle': [],
+            'bird': [],
+            'boat': [],
+            'bottle': [],
+            'bus': [],
+            'car': [],
+            'cat': [],
+            'chair': [],
+            'cow': [],
+            'diningtable': [],
+            'dog': [],
+            'horse': [],
+            'motorbike': [],
+            'person': ['pedestrian'],
+            'pottedplant': [],
+            'sheep': [],
+            'sofa': [],
+            'train': [],
+            'tvmonitor': []
+        }
+
     def egest(self, *, image_detections, root):
         image_sets_path = f"{root}/VOC2012/ImageSets/Main"
         images_path = f"{root}/VOC2012/JPEGImages"
@@ -127,7 +148,7 @@ class VOCEgestor(Egestor):
 
             for detection in image_detection['detections']:
                 x_object = add_sub_node(xml_root, 'object', {
-                    'name': CONVERT_LABELS.get(detection['label'], detection['label']),
+                    'name': detection['label'],
                     'difficult': 0,
                     'occluded': 0,
                     'truncated': 0,
