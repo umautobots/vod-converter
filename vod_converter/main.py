@@ -29,7 +29,7 @@ INGESTORS = {
 
 EGESTORS = {
     'voc': voc.VOCEgestor(),
-    # 'kitti': kitti.KITTIEgestor() # TODO
+    'kitti': kitti.KITTIEgestor()
 }
 
 
