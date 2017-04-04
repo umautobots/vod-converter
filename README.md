@@ -25,4 +25,5 @@ Currently support conversion from:
 to:
 
 - [Pascal VOC](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/index.html)
+- [KITTI](http://www.cvlibs.net/datasets/kitti/eval_object.php)
 
