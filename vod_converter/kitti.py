@@ -147,7 +147,7 @@ class KITTIEgestor(Egestor):
                 csvwriter = csv.writer(csvfile, delimiter=' ', quoting=csv.QUOTE_MINIMAL)
 
                 for detection in image_detection['detections']:
-                    kitti_row = [-1] * 12
+                    kitti_row = [-1] * 15
                     kitti_row[0] = detection['label']
                     kitti_row[1] = DEFAULT_TRUNCATED
                     kitti_row[2] = DEFAULT_OCCLUDED
