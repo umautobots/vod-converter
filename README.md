@@ -27,3 +27,7 @@ to:
 - [Pascal VOC](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/index.html)
 - [KITTI](http://www.cvlibs.net/datasets/kitti/eval_object.php)
 
+## Python2 support
+
+This project is written using features requiring Python3.6+, but there is [a fork](https://github.com/nghiattran/vod-converter) that has been updated to work in Python2 if you need it.
+
