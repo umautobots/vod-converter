@@ -27,9 +27,9 @@ to:
 - [Pascal VOC](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/index.html)
 - [KITTI](http://www.cvlibs.net/datasets/kitti/eval_object.php)
 
-## That 'test.txt' file for KITTI
+## That 'train.txt' file for KITTI
 
-When reading in KITTI, the script expects a `test.txt` file that isn't part of the original dataset. This is simply a file with the name of each datapoint you wish to capture. [Here's an example with everything in the training set](https://github.com/umautobots/vod-converter/files/1139276/train.txt). You can also create it like so:
+When reading in KITTI, the script expects a `train.txt` file that isn't part of the original dataset. This is simply a file with the name of each datapoint you wish to capture. [Here's an example with everything in the training set](https://github.com/umautobots/vod-converter/files/1139276/train.txt). You can also create it like so:
 
 ```
 $ cd datasets/kitti && ls -1 training/image_2 | cut -d. -f1 > train.txt && cd -
