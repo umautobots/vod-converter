@@ -96,10 +96,10 @@ class KITTIIngestor(Ingestor):
                 label = row[0]
                 detections.append({
                     'label': label,
-                    'left': max(0.0, x1),
-                    'right': min(1023, x2),
-                    'top': max(0.0, y1),
-                    'bottom': min(511, y2)
+                    'left': x1,
+                    'right': x2,
+                    'top': y1,
+                    'bottom': y2
                 })
         return detections
 
