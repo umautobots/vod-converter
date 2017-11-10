@@ -102,6 +102,8 @@ class KITTITrackingIngestor(Ingestor):
         for frame_id in sorted(detections_by_frame.keys()):
             frame_dets = detections_by_frame[frame_id]
             image_path = f"{images_dir}/{frame_id:06d}.png"
+            if not os.path.exists(image_path):
+                image_path = f"{images_dir}/{frame_id:06d}.jpg"
             with Image.open(image_path) as image:
                 image_width = image.width
                 image_height = image.height
